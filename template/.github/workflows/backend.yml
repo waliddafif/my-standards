@@ -1,0 +1,35 @@
+name: Backend Tests
+
+on:
+  push:
+    paths:
+      - 'app/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'tests/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check app/ && ruff format --check app/
+
+      - name: Tests (PostgreSQL via testcontainers)
+        run: pytest tests/unit/ -v -x
+        # Docker est disponible sur ubuntu-latest — testcontainers démarre PostgreSQL automatiquement
