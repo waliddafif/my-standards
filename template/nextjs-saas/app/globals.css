@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    /* Colors (HSL values — used as hsl(var(--token))) */
+    --background:       220 33% 98%;
+    --foreground:       222 47% 11%;
+    --card:             0 0% 100%;
+    --card-foreground:  222 47% 11%;
+    --popover:          0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary:          222 89% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:        220 20% 95%;
+    --secondary-foreground: 222 47% 11%;
+    --muted:            220 20% 95%;
+    --muted-foreground: 215 16% 47%;
+    --accent:           220 20% 95%;
+    --accent-foreground: 222 47% 11%;
+    --destructive:      0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border:           215 24% 88%;
+    --input:            215 24% 88%;
+    --ring:             222 89% 56%;
+
+    /* Border radius */
+    --radius: 0.75rem;
+
+    /* Shadows (linear/Vercel-inspired) */
+    --shadow-xs:  0 1px 2px 0 rgb(0 0 0 / 0.04);
+    --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.07);
+    --shadow-md:  0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+    --shadow-lg:  0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+    --shadow-xl:  0 20px 25px -5px rgb(0 0 0 / 0.07), 0 8px 10px -6px rgb(0 0 0 / 0.07);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+
+    /* Chart colors */
+    --chart-1: 222 89% 56%;
+    --chart-2: 196 95% 45%;
+    --chart-3: 142 72% 45%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 0 84% 60%;
+  }
+
+  .dark {
+    --background:       225 22% 8%;
+    --foreground:       210 40% 98%;
+    --card:             224 18% 10%;
+    --card-foreground:  210 40% 98%;
+    --popover:          224 18% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary:          214 95% 67%;
+    --primary-foreground: 222 47% 11%;
+    --secondary:        223 16% 16%;
+    --secondary-foreground: 210 40% 98%;
+    --muted:            223 16% 16%;
+    --muted-foreground: 216 15% 67%;
+    --accent:           223 16% 16%;
+    --accent-foreground: 210 40% 98%;
+    --destructive:      0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+    --border:           224 13% 24%;
+    --input:            224 13% 24%;
+    --ring:             214 95% 67%;
+  }
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+
+    /* Subtle gradient background */
+    background-image:
+      radial-gradient(1200px circle at 0% 0%, hsl(217 95% 96%) 0%, transparent 45%),
+      radial-gradient(1000px circle at 100% 0%, hsl(196 95% 95%) 0%, transparent 40%),
+      linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background)));
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(1200px circle at 0% 0%, hsl(225 50% 12%) 0%, transparent 45%),
+      radial-gradient(1000px circle at 100% 0%, hsl(220 40% 10%) 0%, transparent 40%),
+      linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background)));
+  }
+
+  /* Focus visible */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary rounded-sm;
+  }
+
+  /* Touch targets (WCAG 2.5.5) */
+  @media (pointer: coarse) {
+    button, a, [role="button"], input[type="checkbox"], input[type="radio"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  /* Text selection */
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--foreground));
+  }
+}
+
+/* ─── Utilities ──────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Glass morphism */
+  .glass {
+    @apply border border-white/55 bg-white/80 backdrop-blur-md shadow-lg;
+  }
+  .dark .glass {
+    @apply border-white/10 bg-white/5;
+  }
+
+  /* Skip link (accessibility) */
+  .skip-link {
+    @apply absolute -top-full left-4 z-50 bg-primary text-primary-foreground px-4 py-2 rounded-md;
+  }
+  .skip-link:focus {
+    @apply top-4;
+  }
+}
