@@ -1,0 +1,31 @@
+# .cursorrules
+
+> Les règles et conventions sont définies dans `CLAUDE.md`.
+> En cas de conflit, **`CLAUDE.md` fait foi**.
+
+## Démarrage
+
+**Commence par lire `CLAUDE.md`** — c'est la source de vérité pour :
+- Stack technique et architecture
+- Règles spécifiques au projet
+- Commandes essentielles
+
+Les règles universelles (sécurité, conventions, tests) sont dans `~/.claude/CLAUDE.md`.
+
+## Règles prioritaires (résumé)
+
+1. Jamais `detail=str(e)` dans les réponses HTTP
+2. Lire les modèles/schémas AVANT de coder
+3. `float()` sur Decimal, `str()` sur UUID avant sérialisation
+4. Base de données réelle dans les tests (pas SQLite si prod = PostgreSQL)
+5. Secrets GCP sans `\n` final (`echo -n`)
+
+## Fichiers à consulter selon le besoin
+
+| Besoin | Fichier |
+|--------|---------|
+| Architecture | `.claude/context/ARCHITECTURE.md` |
+| Sécurité | `~/.claude/rules/SECURITY.md` |
+| Conventions code | `~/.claude/rules/CODING.md` |
+| Conventions tests | `~/.claude/rules/TESTING.md` |
+| Ops | `docs/ops/RUNBOOK.md` |
