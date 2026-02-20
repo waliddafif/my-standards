@@ -27,10 +27,18 @@ if [ -f "$SYMLINK" ] && [ ! -L "$SYMLINK" ]; then
   mv "$SYMLINK" "$BACKUP"
 fi
 
-# 4. Créer le symlink
+# 4. Créer le symlink CLAUDE.md
 ln -sf "$INSTALL_DIR/CLAUDE.md" "$SYMLINK"
 echo "✓ Symlink créé : $SYMLINK → $INSTALL_DIR/CLAUDE.md"
 
+# 5. Symlinkter les slash commands dans ~/.claude/commands/
+mkdir -p "$CLAUDE_DIR/commands"
+for cmd in "$INSTALL_DIR/commands/"*.md; do
+  name=$(basename "$cmd")
+  ln -sf "$cmd" "$CLAUDE_DIR/commands/$name"
+  echo "✓ Commande : /${name%.md}"
+done
+
 echo ""
 echo "=== Terminé ==="
-echo "Les règles globales sont maintenant actives dans tous tes projets Claude Code."
+echo "Règles globales et slash commands actives dans tous tes projets Claude Code."
