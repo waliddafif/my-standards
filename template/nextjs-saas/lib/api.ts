@@ -1,23 +1,21 @@
+import { authAdapter } from "./auth/index";
 import { ApiError, ForbiddenError, OfflineError, RateLimitError } from "./errors";
-import { auth } from "./firebase";
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 /**
  * Authenticated fetch wrapper.
- * Automatically injects Firebase Bearer token and handles common error cases.
+ * Récupère le token via authAdapter.getToken() — indépendant du provider auth.
  */
 export async function api<T = unknown>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<T> {
   let token: string | undefined;
-
   try {
-    token = await auth.currentUser?.getIdToken();
+    token = await authAdapter.getToken();
   } catch {
-    // Not authenticated yet — proceed without token (public endpoints)
+    // Non authentifié — continue sans token (endpoints publics)
   }
 
   const headers: HeadersInit = {
@@ -34,14 +32,11 @@ export async function api<T = unknown>(
   }
 
   if (response.status === 204) return undefined as T;
-
   if (response.status === 403) throw new ForbiddenError();
-
   if (response.status === 429) {
     const retryAfter = response.headers.get("Retry-After");
     throw new RateLimitError(retryAfter ? parseInt(retryAfter) : undefined);
   }
-
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
     throw new ApiError(body?.detail ?? "Request failed", response.status);
