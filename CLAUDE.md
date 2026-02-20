@@ -69,3 +69,18 @@ Voir `~/Documents/my-standards/rules/TESTING.md` pour les règles détaillées.
 
 Format : `type(scope): description`
 Types : `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
+
+---
+
+## Recherche web
+
+- **Utiliser `WebSearch` quand je ne suis pas certain** d'une API, d'une feature, d'un comportement d'outil, d'une version de librairie, ou d'un écosystème qui évolue vite (ex: Codex, MCP, Next.js, GCP).
+- Ne jamais répondre avec confiance sur des sujets potentiellement obsolètes sans vérifier d'abord.
+- Exemples de situations qui déclenchent une recherche : "est-ce que X supporte Y ?", "comment configurer Z ?", "quelle est la dernière version de ?".
+
+---
+
+## MCP Playwright
+
+- **Ne JAMAIS appeler `browser_take_screenshot`** sauf si l'utilisateur le demande explicitement.
+- Préférer `browser_snapshot` (accessibility tree) pour inspecter une page sans générer de fichier image.
