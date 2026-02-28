@@ -49,6 +49,7 @@ Ces deux repos sont complémentaires :
 | Repo | Rôle | Quand |
 |------|------|-------|
 | **`my-standards`** | Règles qualité/sécurité | Toujours actif (symlink automatique) |
+| **[`claude-config`](https://github.com/waliddafif/claude-config)** | Config Claude Code (skills, settings) | Setup nouvelle machine |
 | **`saas-template`** | Point de départ visuel | Une fois au démarrage d'un nouveau projet |
 
 ### Étape 1 — Créer le projet depuis le template
