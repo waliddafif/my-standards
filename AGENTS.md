@@ -39,3 +39,12 @@ Puis consulte selon le besoin :
 3. `float()` sur Decimal, `str()` sur UUID avant sérialisation
 4. Base de données réelle dans les tests (pas SQLite si prod = PostgreSQL)
 5. Secrets GCP sans `\n` final (`echo -n`)
+
+## Sécurité étendue
+
+`rules/SECURITY.md` couvre 3 couches :
+- **S1-S9** : Règles internes (timing attacks, SQL injection, rate limiting, etc.)
+- **S10-S19** : OWASP Top 10 2025 (CORS, CSRF, input validation, password hashing, CSP, Next.js CVEs)
+- **AG1-AG10** : OWASP Agentic Top 10 2026 (prompt injection, tool misuse, MCP auth, agent audit trail)
+
+Consulter `rules/SECURITY.md` pour le détail de chaque règle.

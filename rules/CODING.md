@@ -133,3 +133,24 @@ data = Column(JSONB, default=[])
 # ✅ Server default immuable
 data = Column(JSONB, server_default="[]")
 ```
+
+---
+
+## SQLAlchemy Async — Best Practices
+
+```python
+# ✅ Toujours désactiver expire_on_commit en async
+async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+# ✅ Connection pooling en production
+engine = create_async_engine(
+    DATABASE_URL,
+    pool_size=20,
+    max_overflow=10,
+    pool_pre_ping=True,  # détecte les connexions mortes
+)
+```
+
+- `expire_on_commit=False` : évite les lazy loads post-commit qui crashent en async
+- `pool_pre_ping=True` : détecte les connexions perdues avant de les utiliser
+- Driver recommandé : `asyncpg` pour PostgreSQL

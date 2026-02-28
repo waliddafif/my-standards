@@ -17,18 +17,30 @@
 
 ## Sécurité
 
-Voir `~/Documents/my-standards/rules/SECURITY.md` pour les règles détaillées.
+Voir `~/Documents/my-standards/rules/SECURITY.md` pour les 3 couches de règles (S1-S19, AG1-AG10).
 
-### Résumé obligatoire
+### Web/API (S1-S19)
 
-- Comparaison de secrets : `hmac.compare_digest()` uniquement (anti timing-attack)
-- Messages d'erreur HTTP : génériques, jamais `detail=str(e)` ou `detail=f"... {e}"`
-- SQL : requêtes paramétrées uniquement, jamais de f-string dans du SQL
+- `hmac.compare_digest()` pour comparer les secrets
+- Jamais `detail=str(e)` — messages d'erreur génériques
+- SQL paramétré uniquement, jamais de f-string
 - Rate limiting sur tout endpoint public/auth sensible
-- Validation MIME par magic bytes, pas uniquement l'extension de fichier
-- Services de sécurité : fail-closed en production
-- Secrets : jamais dans git, jamais de `\n` final dans les secrets GCP
-- Audit trail sur les téléchargements de fichiers sensibles
+- Validation MIME par magic bytes
+- Fail-closed en production
+- Secrets jamais dans git, `echo -n` pour GCP
+- CORS restrictif, CSRF protection, input validation Pydantic strict
+- Passwords : bcrypt/Argon2, jamais MD5/SHA
+- Next.js : pas de secrets dans les Client Components, re-vérifier l'auth hors middleware
+
+### Agentic AI/MCP (AG1-AG10)
+
+- Outputs d'agents = non fiables, valider avant d'exécuter
+- Moindre privilège sur les outils
+- Pas de credentials partagés entre agents, token pass-through interdit
+- Vérifier les MCP servers (tool poisoning)
+- Jamais `eval()`/`exec()` sur du contenu LLM
+- Détection prompt injection, MCP auth via OAuth 2.1
+- Logger toutes les actions d'agents
 
 ---
 
@@ -72,11 +84,36 @@ Types : `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
 
 ---
 
+## Workflow Claude Code
+
+- **Planifier avant de coder** : plan mode obligatoire pour les tâches touchant 3+ fichiers
+- **Self-verification** : après avoir écrit du code, exécuter les tests pertinents. Ne pas attendre que l'utilisateur trouve les bugs.
+- **Context propre** : limiter les outputs (`| tail -30`), déléguer les recherches exploratoires aux subagents
+- **Si corrigé 2 fois sur la même erreur** : recommander `/clear` et reformuler
+- **Notes par projet** : utiliser un répertoire `notes/` pour le contexte évolutif, garder CLAUDE.md concis
+- **Fin de session** : vérifier l'absence de code dupliqué, TODO oubliés, console.log (`/techdebt`)
+
+---
+
 ## Recherche web
 
 - **Utiliser `WebSearch` quand je ne suis pas certain** d'une API, d'une feature, d'un comportement d'outil, d'une version de librairie, ou d'un écosystème qui évolue vite (ex: Codex, MCP, Next.js, GCP).
 - Ne jamais répondre avec confiance sur des sujets potentiellement obsolètes sans vérifier d'abord.
 - Exemples de situations qui déclenchent une recherche : "est-ce que X supporte Y ?", "comment configurer Z ?", "quelle est la dernière version de ?".
+
+---
+
+## Skills disponibles
+
+| Commande | Description |
+|----------|-------------|
+| `/project-init` | Scaffolder un nouveau projet depuis les templates |
+| `/security-audit` | Audit de sécurité OWASP avec scoring |
+| `/pr-ready` | Vérification complète avant PR (review + sécu + tests + deploy) |
+| `/techdebt` | Nettoyage dette technique en fin de session |
+| `/update-standards` | Vérifier les dernières best practices (mensuel) |
+| *(auto)* `standards-enforcer` | Règles de code chargées automatiquement |
+| *(auto)* `dev-workflow` | Best practices de workflow chargées automatiquement |
 
 ---
 
