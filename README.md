@@ -50,7 +50,8 @@ Ces deux repos sont complémentaires :
 |------|------|-------|
 | **`my-standards`** | Règles qualité/sécurité | Toujours actif (symlink automatique) |
 | **[`claude-config`](https://github.com/waliddafif/claude-config)** | Config Claude Code (skills, settings) | Setup nouvelle machine |
-| **`saas-template`** | Point de départ visuel | Une fois au démarrage d'un nouveau projet |
+| **`saas-template`** | Point de départ visuel (Next.js) | Nouveau projet Next.js |
+| **[`saas-ai-template`](https://github.com/waliddafif/saas-ai-template)** | Starter SaaS AI (Bun/Elysia/React/AI SDK) | Nouveau projet SaaS avec assistant IA |
 
 ### Étape 1 — Créer le projet depuis le template
 
