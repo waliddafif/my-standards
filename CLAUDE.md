@@ -84,6 +84,21 @@ Types : `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
 
 ---
 
+## Dépendances & code existant
+
+- **Avant d'installer une lib** : vérifier si Node, React, Next.js ou une lib déjà présente couvre le besoin
+- **Avant de créer un fichier/composant/util** : chercher s'il en existe un similaire dans le projet (`Grep` ou `Glob` en premier)
+
+---
+
+## Effort de réflexion (ultrathink)
+
+Avant de commencer une tâche, évalue sa complexité :
+- **Tâche complexe** (3+ fichiers, sécurité/auth, migration DB, algorithme non trivial, debug multi-causes, architecture) → signale-le explicitement et demande : *"Cette tâche mérite un effort maximal. Tu veux activer ultrathink ?"*
+- **Tâche simple** → procède directement sans demander
+
+---
+
 ## Workflow Claude Code
 
 - **Planifier avant de coder** : plan mode obligatoire pour les tâches touchant 3+ fichiers
@@ -97,9 +112,11 @@ Types : `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
 
 ## Recherche web
 
-- **Utiliser `WebSearch` quand je ne suis pas certain** d'une API, d'une feature, d'un comportement d'outil, d'une version de librairie, ou d'un écosystème qui évolue vite (ex: Codex, MCP, Next.js, GCP).
+- **OBLIGATOIRE : `WebSearch` AVANT toute installation, configuration ou déploiement de service externe** (DB, hosting, CI/CD, API tierce). Vérifier la dernière version stable, les options disponibles, et les breaking changes.
+- **Utiliser `WebSearch` quand je ne suis pas certain** d'une API, d'une feature, d'un comportement d'outil, d'une version de librairie, ou d'un écosystème qui évolue vite (ex: Codex, MCP, Next.js, GCP, Railway, Stripe).
 - Ne jamais répondre avec confiance sur des sujets potentiellement obsolètes sans vérifier d'abord.
-- Exemples de situations qui déclenchent une recherche : "est-ce que X supporte Y ?", "comment configurer Z ?", "quelle est la dernière version de ?".
+- Ne jamais assumer qu'une version n'existe pas ou qu'un service ne supporte pas une feature sans recherche préalable.
+- Exemples de situations qui déclenchent une recherche : "est-ce que X supporte Y ?", "comment configurer Z ?", "quelle est la dernière version de ?", "quel template/image utiliser pour X ?".
 
 ---
 
@@ -121,3 +138,5 @@ Types : `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
 
 - **Ne JAMAIS appeler `browser_take_screenshot`** sauf si l'utilisateur le demande explicitement.
 - Préférer `browser_snapshot` (accessibility tree) pour inspecter une page sans générer de fichier image.
+
+@RTK.md
