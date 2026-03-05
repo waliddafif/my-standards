@@ -104,6 +104,7 @@ Avant de commencer une tâche, évalue sa complexité :
 - **Planifier avant de coder** : plan mode obligatoire pour les tâches touchant 3+ fichiers
 - **Self-verification** : après avoir écrit du code, exécuter les tests pertinents. Ne pas attendre que l'utilisateur trouve les bugs.
 - **Context propre** : limiter les outputs (`| tail -30`), déléguer les recherches exploratoires aux subagents
+- **Compact proactif** : ne pas dépasser 50% du contexte. À 50%, recommander `/compact` à l'utilisateur avant de continuer
 - **Si corrigé 2 fois sur la même erreur** : recommander `/clear` et reformuler
 - **Notes par projet** : utiliser un répertoire `notes/` pour le contexte évolutif, garder CLAUDE.md concis
 - **Fin de session** : vérifier l'absence de code dupliqué, TODO oubliés, console.log (`/techdebt`)
